@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIELD System - Identification</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --srca-red: #d9534f; --dark-navy: #1a252f; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .login-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 400px; border-top: 8px solid var(--srca-red); }
+        .logo { width: 120px; margin-bottom: 20px; }
+        h1 { color: var(--dark-navy); margin-bottom: 5px; font-size: 1.8rem; }
+        p { color: #7f8c8d; margin-bottom: 30px; }
+        
+        /* Identification Methods */
+        .methods { display: flex; gap: 10px; margin-bottom: 25px; }
+        .method-btn { flex: 1; padding: 15px 10px; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; transition: 0.3s; background: #fff; }
+        .method-btn.active { border-color: var(--srca-red); background: #fff5f5; color: var(--srca-red); font-weight: bold; }
+        .method-btn i { display: block; font-size: 1.5rem; margin-bottom: 5px; }
+
+        /* Input Field (The Missing Part!) */
+        .input-group { margin-bottom: 20px; text-align: left; }
+        input[type="text"] { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem; box-sizing: border-box; outline: none; transition: 0.3s; }
+        input[type="text"]:focus { border-color: var(--srca-red); box-shadow: 0 0 5px rgba(217, 83, 79, 0.2); }
+
+        .btn-search { width: 100%; padding: 15px; background: var(--srca-red); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-search:hover { background: #c9302c; transform: translateY(-2px); }
+        .error { color: var(--srca-red); margin-top: 15px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <img src="https://i.postimg.cc/mD8zM9Vp/shield-logo.png" alt="SHIELD Logo" class="logo">
+    <h1>SHIELD SYSTEM</h1>
+    <p>smart patient identification</p>
+
+    <div class="methods">
+        <div class="method-btn active"><i class="fas fa-id-card"></i> ID</div>
+        <div class="method-btn"><i class="fas fa-user-viewfinder"></i> face scan</div>
+        <div class="method-btn"><i class="fas fa-fingerprint"></i> Fingerprint</div>
+    </div>
+
+    <form action="/dashboard" method="POST">
+        <div class="input-group">
+            <input type="text" name="patient_id" placeholder="Enter National / Resident ID..." required>
+        </div>
+        <button type="submit" class="btn-search">Retrieve Clinical Data</button>
+    </form>
+
+    {% if error %}
+    <div class="error"><i class="fas fa-exclamation-circle"></i> {{ error }}</div>
+    {% endif %}
+</div>
+
+</body>
+</html>
