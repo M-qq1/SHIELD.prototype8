@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SHIELD - EMS Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --srca-red: #d9534f; --dark-navy: #1a252f; --bg-gray: #f8f9fa; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-gray); margin: 0; padding: 10px; color: #333; }
+        .container { max-width: 1200px; margin: auto; }
+        
+        /* Header */
+        header { background: var(--dark-navy); color: white; padding: 12px 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .back-btn { background: #444; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; text-decoration: none; font-size: 0.9rem; }
+
+        /* Dispatch Info Bar */
+        .dispatch-bar { background: #fff3cd; border: 1px solid #ffeeba; padding: 10px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; gap: 20px; font-size: 0.95rem; }
+
+        /* Layout */
+        .grid { display: grid; grid-template-columns: 1fr 2fr; gap: 15px; }
+        .card { background: white; border-radius: 10px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .card-title { color: var(--srca-red); font-weight: bold; font-size: 1rem; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 12px; }
+
+        /* Compact Diagnosis Box */
+        .diag-box { background: #fef9f9; border-left: 4px solid var(--srca-red); padding: 10px; border-radius: 5px; }
+        
+        /* Full Protocol Box */
+        .protocol-full { grid-column: span 2; background: white; border: 2px solid var(--srca-red); border-radius: 10px; }
+        .protocol-header { background: var(--srca-red); color: white; padding: 10px 15px; font-weight: bold; }
+        .protocol-content { padding: 15px; line-height: 1.6; }
+
+        .btn-group { grid-column: span 2; display: flex; gap: 10px; }
+        .btn { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-hospital { background: var(--dark-navy); }
+        .btn-record { background: #27ae60; }
+        
+        ul { padding-left: 20px; margin: 5px 0; }
+        .alert-text { color: #d9534f; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span><i class="fas fa-shield-alt"></i> SHIELD SYSTEM</span>
+        <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Search</a>
+    </header>
+
+    <div class="dispatch-bar">
+        <span><strong><i class="fas fa-map-marker-alt"></i> Location:</strong> {{ d[10] }}</span>
+        <span><strong><i class="fas fa-broadcast-tower"></i> Dispatch:</strong> {{ d[11] }}</span>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-user-injured"></i> Clinical Background</div>
+            <p><strong>Name:</strong> {{ d[1] }} ({{ d[2] }})</p>
+            <p><strong>Blood:</strong> <span class="alert-text">{{ d[3] }}</span> | <strong>Age:</strong> {{ d[2] }}</p>
+            <p><strong>Insurance:</strong> {{ d[4] }}</p>
+            <hr>
+            <p><strong>Chronic:</strong> {{ d[5] }}</p>
+            <p><strong>Allergies:</strong> <span class="alert-text">{{ d[6] }}</span></p>
+            <p><strong>Meds:</strong> {{ d[7] }}</p>
+            <p><strong>Last Visits:</strong><br><small>{{ d[8] }}</small></p>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-stethoscope"></i> History-Based Diagnosis</div>
+            <div class="diag-box">
+                <h3 style="margin:0; color: var(--srca-red);">{{ d[13] }}</h3>
+                <p style="margin: 8px 0 0 0; font-size: 0.9rem;">{{ d[14] }}</p>
+            </div>
+        </div>
+
+        <div class="protocol-full">
+            <div class="protocol-header"><i class="fas fa-notes-medical"></i> Full SRCA Clinical Guidelines (Code: {{ d[12] }})</div>
+            <div class="protocol-content">
+                {{ d[15] }}
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-hospital"><i class="fas fa-hospital-alt"></i> Pre-Hospital Notification</button>
+            <button class="btn btn-record"><i class="fas fa-file-signature"></i> Auto-fill ePCR</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
